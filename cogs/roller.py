@@ -12,8 +12,9 @@ class Diceroll(commands.Cog):
     @app_commands.command(name="diceroll",description="Roll a dice.")
     @app_commands.describe(shape="Dice shape to roll")
     async def diceroll(self, interaction: discord.Interaction, shape: diceShape.DiceShape):
-        randInt = random.randint(1,shape.value)
+        randInt = random.randint(1,shape.value[1])
         embed = discord.Embed(title="Dice roll results", description=f"You rolled a {randInt}!", color=discord.Color.purple())
+        embed.add_field(name="Dice shape", value=f"{shape.value[0]}", inline=False)
         await interaction.response.send_message(embed=embed)
 
 
