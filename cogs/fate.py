@@ -100,10 +100,12 @@ class Fatecheck(commands.Cog):
             await randomEvent(randInt)
         elif randInt <= FATECRITS[chance][chaos - 1]:
             result = "Exceptional yes!"
-        elif randInt > FATESUCCESS[chance][chaos - 1] or randInt ==0:
+        elif randInt > FATESUCCESS[chance][chaos - 1]:
             result = "No."
         elif randInt >= FATEFAILS[chance][chaos - 1]:
             result = "Exceptional no!"
+        elif FATESUCCESS[chance][chaos - 1] == 0:
+            result = "Yes."
         else:
             result = "Yes."
 
