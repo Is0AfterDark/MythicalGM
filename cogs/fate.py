@@ -21,231 +21,43 @@ class Fatecheck(commands.Cog):
 
         #roll handling
         randInt = random.randint(1,100)
-        tabRes = ["No", "Yes", "Exceptional Yes!", "Exceptional No!"]
+        chance = likelyhood.value
         result = ""
+        FATESUCCESS = {
+            0: [1,1,1,5,10,15,25,35,50],
+            1: [1,1,5,10,15,25,35,50,65],
+            2: [1,5,10,15,25,35,50,65,75],
+            3: [5,10,15,25,35,50,65,75,85],
+            4: [10,15,25,35,50,65,75,85,90],
+            5: [15,25,35,50,65,75,85,90,95],
+            6: [25,35,50,65,75,85,90,95,99],
+            7: [35,50,65,75,85,90,95,99,99],
+            8: [50,65,75,85,90,95,99,99,99]
+        }
 
-        match chaos:
-            case 1:
-                match likelyhood:
-                    case 3:
-                        if randInt >= 82:
-                            result = tabRes[2]
-                        elif randInt > 5:
-                            result = tabRes[1]
-                        elif randInt < 5:
-                            result = tabRes[0]
-                        elif randInt == 1:
-                            result = tabRes[3]
-                    case 4:
-                        if randInt >= 83:
-                            result = tabRes[2]
-                        elif randInt > 10:
-                            result = tabRes[1]
-                        elif randInt < 10:
-                            result = tabRes[0]
-                        elif randInt <= 2:
-                            result = tabRes[3]
-                    case 5:
-                         if randInt >= 84:
-                             result = tabRes[2]
-                         elif randInt > 15:
-                             result = tabRes[1]
-                         elif randInt < 15:
-                             result = tabRes[0]
-                         elif randInt <= 3:
-                             result = tabRes[3]
-                    case 6:
-                         if randInt >= 86:
-                             result = tabRes[2]
-                         elif randInt > 25:
-                             result = tabRes[1]
-                         elif randInt < 25:
-                             result = tabRes[0]
-                         elif randInt <= 5:
-                             result = tabRes[3]
-                    case 7:
-                         if randInt >= 88:
-                             result = tabRes[2]
-                         elif randInt > 35:
-                             result = tabRes[1]
-                         elif randInt < 35:
-                             result = tabRes[0]
-                         elif randInt <= 7:
-                             result = tabRes[3]
-                    case 8:
-                         if randInt >= 91:
-                             result = tabRes[2]
-                         elif randInt > 50:
-                             result = tabRes[1]
-                         elif randInt < 50:
-                             result = tabRes[0]
-                         elif randInt <= 10:
-                             result = tabRes[3]
-                    case _:
-                        if randInt >= 81:
-                            result = tabRes[2]
-                        else:
-                            result = tabRes[1]
-            case 2:
-                match likelyhood:
-                     case 0:
-                         pass
-                     case 1:
-                         pass
-                     case 2:
-                         pass
-                     case 3:
-                         pass
-                     case 4:
-                         pass
-                     case 5:
-                         pass
-                     case 6:
-                         pass
-                     case 7:
-                         pass
-                     case 8:
-                         pass
-            case 3:
-                match likelyhood:
-                    case 0:
-                        pass
-                    case 1:
-                        pass
-                    case 2:
-                        pass
-                    case 3:
-                        pass
-                    case 4:
-                        pass
-                    case 5:
-                        pass
-                    case 6:
-                        pass
-                    case 7:
-                        pass
-                    case 8:
-                        pass
-            case 4:
-                match likelyhood:
-                    case 0:
-                        pass
-                    case 1:
-                        pass
-                    case 2:
-                        pass
-                    case 3:
-                        pass
-                    case 4:
-                        pass
-                    case 5:
-                        pass
-                    case 6:
-                        pass
-                    case 7:
-                        pass
-                    case 8:
-                        pass
-            case 5:
-                match likelyhood:
-                    case 0:
-                        pass
-                    case 1:
-                        pass
-                    case 2:
-                        pass
-                    case 3:
-                        pass
-                    case 4:
-                        pass
-                    case 5:
-                        pass
-                    case 6:
-                        pass
-                    case 7:
-                        pass
-                    case 8:
-                        pass
-            case 6:
-                match likelyhood:
-                    case 0:
-                        pass
-                    case 1:
-                        pass
-                    case 2:
-                        pass
-                    case 3:
-                        pass
-                    case 4:
-                        pass
-                    case 5:
-                        pass
-                    case 6:
-                        pass
-                    case 7:
-                        pass
-                    case 8:
-                        pass
-            case 7:
-                match likelyhood:
-                    case 0:
-                        pass
-                    case 1:
-                        pass
-                    case 2:
-                        pass
-                    case 3:
-                        pass
-                    case 4:
-                        pass
-                    case 5:
-                        pass
-                    case 6:
-                        pass
-                    case 7:
-                        pass
-                    case 8:
-                        pass
-            case 8:
-                match likelyhood:
-                    case 0:
-                        pass
-                    case 1:
-                        pass
-                    case 2:
-                        pass
-                    case 3:
-                        pass
-                    case 4:
-                        pass
-                    case 5:
-                        pass
-                    case 6:
-                        pass
-                    case 7:
-                        pass
-                    case 8:
-                        pass
-            case 9:
-                match likelyhood:
-                    case 0:
-                        pass
-                    case 1:
-                        pass
-                    case 2:
-                        pass
-                    case 3:
-                        pass
-                    case 4:
-                        pass
-                    case 5:
-                        pass
-                    case 6:
-                        pass
-                    case 7:
-                        pass
-                    case 8:
-                        pass
+        yes = FATESUCCESS[chance][chaos - 1]
+
+        # impossible ranges
+        if yes == 1:
+            vno = None
+        else:
+            vno = max(1, yes // 5)
+
+        vyes = 101 - vno if vno else None
+
+        if vyes and randInt >= vyes:
+            result = "Exceptional yes!"
+
+        if randInt <= yes:
+            result = "Yes."
+
+        if vno and randInt <= vno:
+            result = "Exceptional No!"
+
+        result = "No."
+
+
+
 
         #Message handling
         embed = discord.Embed(title="Dice roll results", description=f"You rolled a {randInt}!", color=discord.Color.purple())
