@@ -18,8 +18,7 @@ class Fatecheck(commands.Cog):
             await interaction.response.send_message(embed=errmsg, ephemeral=True)
 
         #roll handling
-        #randInt = random.randint(1,100)
-        randInt = 66
+        randInt = random.randint(1,100)
         chance = likelyhood.value
         result = ""
         chaosvalue = randInt % 10
