@@ -6,5 +6,5 @@ A Discord bot to roll dice and handle the general mechanics of Mythic 2E.
 
 **COMMAND LIST**
 
-/diceroll - standard diceroll. Takes the shape of the dice as parameter
-/fatecheck - Fate check following the Oracle's rules. Requires a chaos factor (int 1-9) and a likelyhood that adjusts the thresholds for successes
+* /diceroll - standard diceroll. Takes the shape of the dice as parameter
+* /fatecheck - Fate check following the Oracle's rules. Requires a chaos factor (int 1-9) and a likelyhood that adjusts the thresholds for successes
