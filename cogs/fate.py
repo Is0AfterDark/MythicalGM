@@ -13,7 +13,6 @@ class Fatecheck(commands.Cog):
     @app_commands.describe(likelyhood="The likeliness of the roll. Takes the chaos factor into account")
     async def fate(self, interaction: discord.Interaction, chaos: int, likelyhood: odds.Odds):
         #error handling
-        global result
         errmsg = discord.Embed(title="There was an error during the roll", description="The chaos factor value has to be between 1 and 9", color=discord.Color.red())
         if chaos > 9 or chaos < 0:
             await interaction.response.send_message(embed=errmsg, ephemeral=True)
@@ -21,6 +20,7 @@ class Fatecheck(commands.Cog):
         #roll handling
         randInt = random.randint(1,100)
         chance = likelyhood.value
+        result = ""
         FATESUCCESS = {
             0: [1,1,1,5,10,15,25,35,50],
             1: [1,1,5,10,15,25,35,50,65],
