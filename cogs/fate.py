@@ -18,9 +18,11 @@ class Fatecheck(commands.Cog):
             await interaction.response.send_message(embed=errmsg, ephemeral=True)
 
         #roll handling
-        randInt = random.randint(1,100)
+        #randInt = random.randint(1,100)
+        randInt = 66
         chance = likelyhood.value
         result = ""
+        chaosvalue = randInt % 10
         FATESUCCESS = {
             0: [1,1,1,5,10,15,25,35,50],
             1: [1,1,5,10,15,25,35,50,65],
@@ -95,7 +97,7 @@ class Fatecheck(commands.Cog):
             eventembed.add_field(name=f"Event roll result: {eventInt}",value=f"Fate roll value: {originalRoll}", inline=False)
             await interaction.response.send_message(embed=eventembed)
 
-        if randInt in SAMESIES:
+        if randInt in SAMESIES and chaosvalue == chaos:
             await randomEvent(randInt)
         elif randInt >= FATECRITS[chance][chaos - 1]:
             result = "Exceptional yes!"
@@ -108,7 +110,7 @@ class Fatecheck(commands.Cog):
 
         #Message handling
         embed = discord.Embed(title=f"You rolled a {randInt}", description=f"The Oracle says...{result}", color=discord.Color.purple())
-        embed.add_field(name="Parameters:", value=f"Chaos factor: {chaos} | Likelyhood: {likelyhood}", inline=False)
+        embed.add_field(name="Parameters:", value=f"Chaos factor: {chaos} | Likelyhood: {likelyhood.name}", inline=False)
         await interaction.response.send_message(embed=embed)
 
 
