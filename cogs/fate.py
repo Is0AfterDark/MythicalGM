@@ -60,7 +60,7 @@ class Fatecheck(commands.Cog):
 
         SAMESIES = [11,22,33,44,55,66,77,88,99]
 
-        async def randomEvent(originalRoll):
+        async def randomEvent():
             eventInt = random.randint(1,100)
             event = ""
 
@@ -91,14 +91,10 @@ class Fatecheck(commands.Cog):
             elif eventInt in range(86,100):
                 event = "Current Context"
 
-            #Message for random events
-            eventembed = discord.Embed(title=f"Random event: {event}!", color=discord.Color.gold())
-            eventembed.add_field(name=f"Event roll result: {eventInt}",value=f"Fate roll value: {originalRoll}", inline=False)
-            await interaction.response.send_message(embed=eventembed)
+            return event
 
-        if randInt in SAMESIES and chaosvalue == chaos:
-            await randomEvent(randInt)
-        elif FATEFAILS[chance][chaos - 1] == 101 or FATECRITS[chance][chaos - 1] == 101:
+
+        if FATEFAILS[chance][chaos - 1] == 101 or FATECRITS[chance][chaos - 1] == 101:
             result = "Yes."
         elif randInt <= FATECRITS[chance][chaos - 1]:
             result = "Exceptional yes!"
@@ -112,6 +108,9 @@ class Fatecheck(commands.Cog):
         #Message handling
         embed = discord.Embed(title=f"You rolled a {randInt}", description=f"The Oracle says...{result}", color=discord.Color.purple())
         embed.add_field(name="Parameters:", value=f"Chaos factor: {chaos} | Likelyhood: {likelyhood.name}", inline=False)
+        if randInt in SAMESIES and chaosvalue == chaos:
+            randev = await randomEvent()
+            embed.add_field(name=f"Random Event: {randev}", value="", inline=False)
         await interaction.response.send_message(embed=embed)
 
 
