@@ -22,7 +22,6 @@ class Fatecheck(commands.Cog):
         #roll handling
         randInt = random.randint(1,100)
         chance = likelyhood.value
-        result = ""
         FATESUCCESS = {
             0: [1,1,1,5,10,15,25,35,50],
             1: [1,1,5,10,15,25,35,50,65],
@@ -35,27 +34,38 @@ class Fatecheck(commands.Cog):
             8: [50,65,75,85,90,95,99,99,99]
         }
 
-        yes = FATESUCCESS[chance][chaos - 1]
+        FATECRITS = {
+            0: [81,81,81,82,83,84,86,88,91],
+            1: [81,81,82,83,84,86,88,91,94],
+            2: [81,82,83,84,86,88,91,94,96],
+            3: [82,83,84,86,88,91,94,96,98],
+            4: [83,84,86,88,91,94,96,98,99],
+            5: [84,86,88,91,94,96,98,99,100],
+            6: [86,88,91,94,96,98,99,100,0],
+            7: [88,91,94,96,98,99,100,0,0],
+            8: [91,94,96,98,99,100,0,0,0]
+        }
 
-        # impossible ranges
-        if yes == 1:
-            vno = None
-        else:
-            vno = max(1, yes // 5)
+        FATEFAILS = {
+            0: [0,0,0,1,2,3,5,7,10],
+            1: [0,0,1,2,3,5,7,10,13],
+            2: [0,1,2,3,5,7,10,13,15],
+            3: [1,2,3,5,7,10,13,15,17],
+            4: [2,3,5,7,10,13,15,17,18],
+            5: [3,5,7,10,13,15,17,18,19],
+            6: [5,7,10,13,15,17,18,19,20],
+            7: [7,10,13,15,17,18,19,20,20],
+            8: [10,13,15,17,18,19,20,20,20]
+        }
 
-        vyes = 101 - vno if vno else None
-
-        if vyes and randInt >= vyes:
+        if randInt >= FATECRITS[chance][chaos - 1]:
             result = "Exceptional yes!"
-
-        if randInt <= yes:
+        elif randInt >= FATESUCCESS[chance][chaos - 1]:
             result = "Yes."
-
-        if vno and randInt <= vno:
-            result = "Exceptional No!"
-
-        result = "No."
-
+        elif randInt <= FATEFAILS[chance][chaos - 1]:
+            result = "Exceptional no!"
+        else:
+            result = "No."
 
 
 
