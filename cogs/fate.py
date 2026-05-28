@@ -34,7 +34,7 @@ class Fatecheck(commands.Cog):
             8: [50,65,75,85,90,95,99,99,99]
         }
 
-        FATECRITS = {
+        FATEFAILS = {
             0: [81,81,81,82,83,84,86,88,91],
             1: [81,81,82,83,84,86,88,91,94],
             2: [81,82,83,84,86,88,91,94,96],
@@ -46,7 +46,7 @@ class Fatecheck(commands.Cog):
             8: [91,94,96,98,99,100,0,0,0]
         }
 
-        FATEFAILS = {
+        FATECRITS = {
             0: [0,0,0,1,2,3,5,7,10],
             1: [0,0,1,2,3,5,7,10,13],
             2: [0,1,2,3,5,7,10,13,15],
@@ -98,14 +98,14 @@ class Fatecheck(commands.Cog):
 
         if randInt in SAMESIES and chaosvalue == chaos:
             await randomEvent(randInt)
-        elif randInt >= FATECRITS[chance][chaos - 1]:
+        elif randInt <= FATECRITS[chance][chaos - 1]:
             result = "Exceptional yes!"
-        elif randInt >= FATESUCCESS[chance][chaos - 1]:
-            result = "Yes."
-        elif randInt <= FATEFAILS[chance][chaos - 1]:
+        elif randInt > FATESUCCESS[chance][chaos - 1]:
+            result = "No."
+        elif randInt >= FATEFAILS[chance][chaos - 1]:
             result = "Exceptional no!"
         else:
-            result = "No."
+            result = "Yes."
 
         #Message handling
         embed = discord.Embed(title=f"You rolled a {randInt}", description=f"The Oracle says...{result}", color=discord.Color.purple())
