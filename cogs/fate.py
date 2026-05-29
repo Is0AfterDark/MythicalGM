@@ -4,6 +4,41 @@ from discord import app_commands
 import random
 import odds
 
+
+async def randomevent():
+    eventInt = random.randint(1, 100)
+    event = ""
+
+    # This is bad and I should be ashamed of it.
+    # TODO rework later
+    if eventInt in range(1, 6):
+        event = "Remote Event"
+    elif eventInt in range(6, 10):
+        event = "Ambiguous Event"
+    elif eventInt in range(10, 20):
+        event = "New NPC"
+    elif eventInt in range(21, 40):
+        event = "NPC Action"
+    elif eventInt in range(41, 45):
+        event = "NPC Negative"
+    elif eventInt in range(46, 50):
+        event = "NPC Positive"
+    elif eventInt in range(51, 55):
+        event = "Move toward a Thread"
+    elif eventInt in range(56, 65):
+        event = "Move away from a Thread"
+    elif eventInt in range(66, 70):
+        event = "Close a Thread"
+    elif eventInt in range(71, 80):
+        event = "PC Negative"
+    elif eventInt in range(81, 85):
+        event = "PC Positive"
+    elif eventInt in range(86, 100):
+        event = "Current Context"
+
+    return event
+
+
 class Fatecheck(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
@@ -60,39 +95,6 @@ class Fatecheck(commands.Cog):
 
         SAMESIES = [11,22,33,44,55,66,77,88,99]
 
-        async def randomEvent():
-            eventInt = random.randint(1,100)
-            event = ""
-
-            #This is bad and I should be ashamed of it.
-            #TODO rework later
-            if eventInt in range(1,6):
-                event = "Remote Event"
-            elif eventInt in range(6,10):
-                event = "Ambiguous Event"
-            elif eventInt in range(10,20):
-                event = "New NPC"
-            elif eventInt in range(21,40):
-                event = "NPC Action"
-            elif eventInt in range(41,45):
-                event = "NPC Negative"
-            elif eventInt in range(46,50):
-                event = "NPC Positive"
-            elif eventInt in range(51,55):
-                event = "Move toward a Thread"
-            elif eventInt in range(56,65):
-                event = "Move away from a Thread"
-            elif eventInt in range(66,70):
-                event = "Close a Thread"
-            elif eventInt in range(71,80):
-                event = "PC Negative"
-            elif eventInt in range(81,85):
-                event = "PC Positive"
-            elif eventInt in range(86,100):
-                event = "Current Context"
-
-            return event
-
 
         if FATEFAILS[chance][chaos - 1] == 101 or FATECRITS[chance][chaos - 1] == 101:
             result = "Yes."
@@ -106,10 +108,10 @@ class Fatecheck(commands.Cog):
             result = "Yes."
 
         #Message handling
-        embed = discord.Embed(title=f"You rolled a {randInt}", description=f"The Oracle says...{result}", color=discord.Color.purple())
+        embed = discord.Embed(title=f"You rolled a {randInt}! The Oracle says...{result}", description=f"", color=discord.Color.purple())
         embed.add_field(name="Parameters:", value=f"Chaos factor: {chaos} | Likelyhood: {likelyhood.name}", inline=False)
         if randInt in SAMESIES and chaosvalue == chaos:
-            randev = await randomEvent()
+            randev = await randomevent()
             embed.add_field(name=f"Random Event: {randev}", value="", inline=False)
         await interaction.response.send_message(embed=embed)
 
